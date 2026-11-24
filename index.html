@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070a12">
+  <meta name="description" content="صفحه‌ی درس کارگاه کامپیوتر ۱؛ ارائه‌های آماده و سرفصل‌های درس از مهارت کار با کیبورد و نگارش علمی تا خطایابی کد و لینوکس.">
+  <title>کارگاه کامپیوتر ۱ | سرفصل‌ها و ارائه‌ها</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070a12;
+      --panel: #0d1220;
+      --ink: #f4f7ff;
+      --ink-soft: #d5dcec;
+      --muted: #9fabc4;
+      --line: rgba(160, 180, 220, .16);
+      --cyan: 34 229 255;
+      --mag: 255 61 240;
+      --lime: 182 255 59;
+      --amber: 255 176 32;
+      --vio: 155 107 255;
+      --font-fa: "Vazirmatn", Tahoma, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--font-fa);
+      font-size: 16px;
+      line-height: 1.8;
+      overflow-x: hidden;
+      background:
+        radial-gradient(40rem 26rem at 92% -4%, rgb(var(--mag) / .13), transparent 70%),
+        radial-gradient(38rem 26rem at 4% 6%, rgb(var(--cyan) / .12), transparent 70%),
+        radial-gradient(34rem 30rem at 50% 108%, rgb(var(--vio) / .12), transparent 70%),
+        var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* faint dot grid */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image: radial-gradient(rgb(255 255 255 / .07) 1px, transparent 1.2px);
+      background-size: 26px 26px;
+      mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
+    }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 3px solid rgb(var(--cyan)); outline-offset: 3px; border-radius: 10px; }
+
+    .page { width: min(100% - 32px, 1140px); margin-inline: auto; padding: 28px 0 56px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+      gap: clamp(24px, 4vw, 56px);
+      align-items: center;
+      padding: clamp(20px, 5vw, 56px) 0 clamp(26px, 4vw, 44px);
+    }
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: clamp(40px, 7.4vw, 84px);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 0;
+      text-shadow:
+        0 0 6px rgb(var(--cyan) / .85),
+        0 0 22px rgb(var(--cyan) / .55),
+        0 0 48px rgb(var(--mag) / .45);
+      animation: neon-on 1.4s steps(1, end) both;
+    }
+    @keyframes neon-on {
+      0%   { text-shadow: none; color: #6b7690; }
+      12%  { text-shadow: 0 0 6px rgb(var(--cyan) / .85); color: #fff; }
+      18%  { text-shadow: none; color: #6b7690; }
+      30%  { text-shadow: 0 0 6px rgb(var(--cyan) / .85), 0 0 22px rgb(var(--cyan) / .55); color: #fff; }
+      36%  { text-shadow: none; color: #6b7690; }
+      100% { text-shadow: 0 0 6px rgb(var(--cyan) / .85), 0 0 22px rgb(var(--cyan) / .55), 0 0 48px rgb(var(--mag) / .45); color: #fff; }
+    }
+    .subtitle {
+      margin: 0 0 24px;
+      max-width: 36em;
+      color: var(--ink-soft);
+      font-size: clamp(16px, 1.7vw, 19px);
+      line-height: 1.95;
+    }
+    .stats { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 22px; padding: 0; list-style: none; }
+    .stat {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgb(var(--c) / .55);
+      background: rgb(var(--c) / .08);
+      box-shadow: 0 0 18px rgb(var(--c) / .16), inset 0 0 12px rgb(var(--c) / .06);
+    }
+    .stat b { font-size: 24px; font-weight: 800; color: rgb(var(--c)); text-shadow: 0 0 12px rgb(var(--c) / .7); line-height: 1.2; }
+    .stat span { color: var(--ink-soft); font-size: 15px; }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 9px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgb(var(--c) / .4);
+      background: rgb(255 255 255 / .03);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .2s var(--ease), border-color .2s var(--ease), box-shadow .2s var(--ease);
+    }
+    .pill-dot { width: 8px; height: 8px; border-radius: 50%; background: rgb(var(--c)); box-shadow: 0 0 10px rgb(var(--c)); }
+    .pill:hover { background: rgb(var(--c) / .14); border-color: rgb(var(--c) / .9); box-shadow: 0 0 18px rgb(var(--c) / .3); }
+
+    /* terminal (decorative) */
+    .term {
+      direction: ltr;
+      border-radius: 16px;
+      border: 1px solid rgb(var(--cyan) / .45);
+      background: linear-gradient(180deg, rgb(13 18 32 / .96), rgb(7 10 18 / .96));
+      box-shadow: 0 0 0 1px rgb(var(--mag) / .12), 0 0 34px rgb(var(--cyan) / .18), 0 24px 60px rgb(0 0 0 / .45);
+      overflow: hidden;
+    }
+    .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+    .term-bar i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+    .term-bar i:nth-child(1) { background: rgb(var(--mag)); box-shadow: 0 0 8px rgb(var(--mag) / .8); }
+    .term-bar i:nth-child(2) { background: rgb(var(--amber)); box-shadow: 0 0 8px rgb(var(--amber) / .8); }
+    .term-bar i:nth-child(3) { background: rgb(var(--lime)); box-shadow: 0 0 8px rgb(var(--lime) / .8); }
+    .term-body { margin: 0; padding: 18px 18px 22px; font: 500 clamp(12.5px, 1.25vw, 15px)/2 var(--font-mono); color: var(--ink-soft); }
+    .term-line { display: block; white-space: nowrap; overflow: hidden; opacity: 0; animation: line-in .5s var(--ease) forwards; }
+    .term-line:nth-child(1) { animation-delay: 1.3s; }
+    .term-line:nth-child(2) { animation-delay: 1.75s; }
+    .term-line:nth-child(3) { animation-delay: 2.2s; }
+    .term-line:nth-child(4) { animation-delay: 2.65s; }
+    .term-line:nth-child(5) { animation-delay: 3.1s; }
+    @keyframes line-in { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+    .p { color: rgb(var(--lime)); }
+    .cmd { color: rgb(var(--cyan)); font-weight: 700; }
+    .flag { color: rgb(var(--amber)); }
+    .caret { display: inline-block; width: .6em; height: 1.05em; vertical-align: text-bottom; background: rgb(var(--mag)); box-shadow: 0 0 10px rgb(var(--mag)); animation: blink 1.1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ---------- Section headings ---------- */
+    .block { margin-top: clamp(28px, 5vw, 52px); }
+    .block-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+    .block-head h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); font-weight: 800; line-height: 1.4; }
+    .block-head .rule { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--line)); }
+    [dir="rtl"] .block-head .rule { background: linear-gradient(270deg, rgb(var(--cyan) / .6), transparent); }
+
+    /* ---------- Ready presentations ---------- */
+    .ready-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .ready {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid rgb(var(--c) / .5);
+      background: linear-gradient(135deg, rgb(var(--c) / .13), rgb(var(--c) / .03) 60%), var(--panel);
+      box-shadow: 0 0 26px rgb(var(--c) / .14);
+      transition: transform .3s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+    }
+    .ready:hover { transform: translateY(-3px); border-color: rgb(var(--c)); box-shadow: 0 0 38px rgb(var(--c) / .34); }
+    .ready-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+    .ready-title { font-size: 19px; font-weight: 800; color: #fff; line-height: 1.5; }
+    .ready-desc { font-size: 14.5px; color: var(--ink-soft); line-height: 1.8; }
+    .go {
+      flex: 0 0 auto;
+      width: 40px; height: 40px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgb(var(--c) / .7);
+      color: rgb(var(--c));
+      box-shadow: 0 0 14px rgb(var(--c) / .35);
+      transition: transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+    }
+    .ready:hover .go { transform: translateX(-4px); background: rgb(var(--c)); color: #05070d; }
+
+    .ic { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+    .ico {
+      flex: 0 0 auto;
+      width: 40px; height: 40px;
+      display: grid; place-items: center;
+      border-radius: 12px;
+      color: rgb(var(--c));
+      background: rgb(var(--c) / .12);
+      border: 1px solid rgb(var(--c) / .45);
+      box-shadow: 0 0 16px rgb(var(--c) / .22), inset 0 0 10px rgb(var(--c) / .08);
+    }
+    .ico svg { width: 22px; height: 22px; filter: drop-shadow(0 0 4px rgb(var(--c) / .8)); }
+    .ico-lg { width: 52px; height: 52px; border-radius: 15px; }
+    .ico-lg svg { width: 28px; height: 28px; }
+
+    /* ---------- Parts & topic cards ---------- */
+    .part { margin-top: clamp(26px, 4vw, 40px); }
+    .part-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .part-badge {
+      padding: 2px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #05070d;
+      background: rgb(var(--c));
+      box-shadow: 0 0 18px rgb(var(--c) / .6);
+    }
+    .part-head h2 { margin: 0; font-size: clamp(18px, 2.4vw, 23px); font-weight: 700; line-height: 1.5; }
+    .part-rule { flex: 1; min-width: 40px; height: 1px; background: linear-gradient(270deg, rgb(var(--c) / .7), transparent); }
+
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .grid.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .topic {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px 16px 15px;
+      border-radius: 16px;
+      border: 1px solid rgb(var(--c) / .32);
+      background:
+        linear-gradient(165deg, rgb(var(--c) / .09), transparent 52%),
+        var(--panel);
+      box-shadow: 0 0 20px rgb(var(--c) / .08);
+      transition: transform .3s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+      overflow: hidden;
+    }
+    .topic::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgb(var(--c)), transparent);
+      box-shadow: 0 0 12px rgb(var(--c) / .8);
+      opacity: .85;
+    }
+    .topic:hover { transform: translateY(-3px); border-color: rgb(var(--c) / .85); box-shadow: 0 0 32px rgb(var(--c) / .26), 0 14px 30px rgb(0 0 0 / .3); }
+    a.topic { border-color: rgb(var(--c) / .6); box-shadow: 0 0 26px rgb(var(--c) / .16); }
+
+    .topic-top { display: flex; align-items: center; justify-content: space-between; }
+    .num {
+      display: grid; place-items: center;
+      min-width: 34px; height: 34px; padding: 0 8px;
+      border-radius: 10px;
+      font: 800 15px/1 var(--font-fa);
+      color: rgb(var(--c));
+      text-shadow: 0 0 10px rgb(var(--c) / .7);
+      border: 1px solid rgb(var(--c) / .35);
+      background: rgb(var(--c) / .07);
+    }
+    .topic h3 { margin: 2px 0 0; font-size: 16.5px; font-weight: 700; line-height: 1.7; color: #fff; text-wrap: balance; }
+
+    .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sess {
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      line-height: 1.9;
+      font-weight: 600;
+      color: rgb(var(--c));
+      border: 1px solid rgb(var(--c) / .5);
+      background: rgb(var(--c) / .1);
+    }
+    .sess-soft { color: var(--ink-soft); border-color: var(--line); background: rgb(255 255 255 / .04); font-weight: 500; }
+
+    .topic ul { margin: 2px 0 0; padding: 0; list-style: none; display: grid; gap: 3px; }
+    .topic li { position: relative; padding-inline-start: 16px; font-size: 14px; line-height: 1.75; color: var(--ink-soft); }
+    .topic li::before {
+      content: "";
+      position: absolute;
+      inset-inline-start: 0;
+      top: .72em;
+      width: 6px; height: 6px;
+      border-radius: 2px;
+      background: rgb(var(--c));
+      box-shadow: 0 0 8px rgb(var(--c) / .9);
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+    .chip {
+      padding: 0 8px;
+      border-radius: 6px;
+      font: 500 12px/1.9 var(--font-mono);
+      color: var(--ink);
+      background: rgb(255 255 255 / .06);
+      border: 1px solid rgb(var(--c) / .3);
+    }
+
+    .task {
+      margin: 2px 0 0;
+      padding: 7px 10px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      border-radius: 10px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #fff;
+      background: rgb(var(--c) / .1);
+      border: 1px dashed rgb(var(--c) / .5);
+    }
+    .task-dot { flex: 0 0 auto; margin-top: .55em; width: 7px; height: 7px; border-radius: 50%; background: rgb(var(--c)); box-shadow: 0 0 8px rgb(var(--c)); }
+
+    .open {
+      margin-top: auto;
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding-block: 5px;
+      padding-inline: 14px 5px;
+      border-radius: 999px;
+      border: 1px solid rgb(var(--c) / .55);
+      background: rgb(var(--c) / .1);
+      font-size: 14px;
+      font-weight: 700;
+      color: rgb(var(--c));
+      transition: background .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    a.topic:hover .open { background: rgb(var(--c)); color: #05070d; box-shadow: 0 0 22px rgb(var(--c) / .55); }
+    a.topic:hover .open .live-dot { background: #05070d; box-shadow: none; }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: rgb(var(--c)); box-shadow: 0 0 10px rgb(var(--c)); animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .35; } }
+    .arrow { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgb(var(--c) / .18); transition: transform .25s var(--ease), background .25s var(--ease); }
+    .arrow .ic { width: 16px; height: 16px; stroke-width: 2.2; }
+    a.topic:hover .arrow { background: rgb(5 7 13 / .14); }
+    a.topic:hover .arrow { transform: translateX(-4px); }
+
+    /* ---------- Footer ---------- */
+    .summary {
+      margin-top: clamp(32px, 5vw, 56px);
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid rgb(var(--amber) / .45);
+      background: linear-gradient(135deg, rgb(var(--amber) / .1), rgb(var(--mag) / .06));
+      box-shadow: 0 0 28px rgb(var(--amber) / .12);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 24px;
+    }
+    .summary strong { font-size: 17px; color: #fff; font-weight: 700; }
+    .summary span { font-size: 14.5px; color: var(--ink-soft); }
+    .footer { margin-top: 26px; text-align: center; color: var(--muted); font-size: 13.5px; }
+
+    ::selection { background: rgb(var(--mag) / .45); color: #fff; }
+    .summary strong { display: inline-flex; align-items: center; gap: 10px; }
+    .summary strong .ic { width: 24px; height: 24px; color: rgb(var(--amber)); filter: drop-shadow(0 0 6px rgb(var(--amber) / .7)); }
+    .footer { padding-top: 18px; border-top: 1px solid var(--line); }
+    .topic .chips { margin-bottom: 4px; }
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: view()) {
+        .topic, .ready { animation: rise both linear; animation-timeline: view(); animation-range: entry 0% entry 35%; }
+        @keyframes rise { from { opacity: 0; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
+      }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .term { max-width: 520px; }
+      .ready-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .grid, .grid.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+    }
+    @media (max-width: 560px) {
+      .grid, .grid.n2 { grid-template-columns: minmax(0, 1fr); }
+      body { font-size: 15.5px; }
+      .page { width: min(100% - 24px, 1140px); padding-top: 18px; }
+      .ready { padding: 14px; gap: 12px; }
+      .ico-lg { width: 46px; height: 46px; }
+      .stat { padding: 6px 13px; }
+      .stat b { font-size: 21px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .term-line { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5.5M11 6l-6 6 6 6"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M8.5 14.5l2.2 2.2 4.3-4.4"/></symbol>
+  </svg>
+  <main class="page">
+
+    <header class="hero">
+      <div>
+        <h1>کارگاه کامپیوتر ۱</h1>
+        <p class="subtitle">
+          مجموعه‌ای از مطالب و تمرین‌های کاربردی برای بهتر کار کردن با رایانه؛
+          از مهارت کار با کیبورد و نگارش علمی تا خطایابی کد و کار با لینوکس.
+        </p>
+        <ul class="stats" aria-label="خلاصه درس">
+          <li class="stat" style="--c: var(--cyan)"><b>۵</b><span>بخش</span></li>
+          <li class="stat" style="--c: var(--mag)"><b>۱۱</b><span>موضوع</span></li>
+          <li class="stat" style="--c: var(--lime)"><b>۱۲</b><span>جلسه</span></li>
+        </ul>
+        <nav class="pills" aria-label="پرش به بخش‌ها"><a class="pill" href="#p1" style="--c:34 229 255"><span class="pill-dot"></span>بخش اول</a><a class="pill" href="#p2" style="--c:255 61 240"><span class="pill-dot"></span>بخش دوم</a><a class="pill" href="#p3" style="--c:182 255 59"><span class="pill-dot"></span>بخش سوم</a><a class="pill" href="#p4" style="--c:255 176 32"><span class="pill-dot"></span>بخش چهارم</a><a class="pill" href="#p5" style="--c:155 107 255"><span class="pill-dot"></span>بخش پنجم</a></nav>
+      </div>
+
+      <div class="term" aria-hidden="true">
+        <div class="term-bar"><i></i><i></i><i></i></div>
+        <pre class="term-body"><span class="term-line"><span class="p">$</span> <span class="cmd">gcc</span> <span class="flag">-Wall -g</span> main.c <span class="flag">-o</span> main</span><span class="term-line"><span class="p">$</span> <span class="cmd">gdb</span> ./main</span><span class="term-line"><span class="p">$</span> <span class="cmd">valgrind</span> ./main</span><span class="term-line"><span class="p">$</span> <span class="cmd">grep</span> <span class="flag">-n</span> "main" main.c</span><span class="term-line"><span class="p">$</span> <span class="caret"></span></span></pre>
+      </div>
+    </header>
+
+    <section class="block" aria-labelledby="ready-title">
+      <div class="block-head">
+        <h2 id="ready-title">ارائه‌های آماده</h2>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+      <div class="ready-grid">
+        <a class="ready" href="./type/" style="--c:34 229 255" aria-label="باز کردن ارائه مهارت کار با کیبورد">
+          <span class="ico ico-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.4"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M18 14h.01M6 14h6M15 14h.01"/></svg></span>
+          <span class="ready-body">
+            <span class="ready-title">مهارت کار با کیبورد</span>
+            <span class="ready-desc">افزایش دقت و سرعت تایپ با یادگیری جایگاه انگشت‌ها، تمرین هدفمند و ساختن حافظهٔ حرکتی.</span>
+          </span>
+          <span class="go" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="ready" href="./ergonomics/" style="--c:182 255 59" aria-label="باز کردن ارائه ارگونومی کار با رایانه">
+          <span class="ico ico-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.8" r="2"/><path d="M12 7.5V13h5M9 13.5h8.5M14.5 13l.5 4.5M10 20h9M12.5 17.5V20"/></svg></span>
+          <span class="ready-body">
+            <span class="ready-title">ارگونومی کار با رایانه</span>
+            <span class="ready-desc">شناخت اصول وضعیت صحیح بدن، تنظیم میز و صندلی، جای‌گذاری تجهیزات و کاهش فشار هنگام کار.</span>
+          </span>
+          <span class="go" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="syllabus-title">
+      <div class="block-head">
+        <h2 id="syllabus-title">سرفصل‌های درس</h2>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+      
+    <section class="part" id="p1" style="--c:34 229 255" aria-labelledby="p1-t">
+      <header class="part-head">
+        <span class="part-badge">بخش اول</span>
+        <h2 id="p1-t">تایپ، ابزارهای مستندسازی و نگارش علمی</h2>
+        <span class="part-rule" aria-hidden="true"></span>
+      </header>
+      <div class="grid n3">
+        <a class="topic" href="./type/" aria-label="باز کردن ارائه مهارت کار با کیبورد" style="--c:34 229 255">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.4"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M18 14h.01M6 14h6M15 14h.01"/></svg></span>
+            <span class="num">۱</span>
+          </div>
+          <h3>مهارت کار با کیبورد</h3>
+          <div class="meta"><span class="sess">۰٫۵ جلسه حضوری</span><span class="sess sess-soft">بقیه مطالب مجازی</span></div>
+          <ul><li>اصول نشستن و قرارگیری دست‌ها بر روی کیبورد</li><li>معرفی سایت‌ها و ابزارهای تمرینی</li><li>سنجش و ارتقای سرعت و دقت تایپ</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">TypingClub</span><span class="chip">keybr</span><span class="chip">typing.com</span><span class="chip">monkeytype</span></div>
+          <p class="task"><span class="task-dot" aria-hidden="true"></span>تکلیف: تمرین تایپ</p>
+          <span class="open"><span class="live-dot" aria-hidden="true"></span>ارائه آماده؛ ورود<span class="arrow" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+        </a>
+        <article class="topic" style="--c:34 229 255">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="2.4"/><path d="M6 15V9l3 3.5L12 9v6M16.5 9v6m0 0-2-2m2 2 2-2"/></svg></span>
+            <span class="num">۲</span>
+          </div>
+          <h3>مستندسازی با Markdown و ساخت اسلاید با Marp</h3>
+          <div class="meta"><span class="sess">۱٫۵ جلسه حضوری</span></div>
+          <ul><li>آشنایی با سینتکس Markdown</li><li>نگارش فایل‌های README حرفه‌ای برای پروژه‌ها</li><li>ساخت اسلایدهای ارائه سریع، مدرن و مبتنی بر کد با Marp در VS Code</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">Markdown</span><span class="chip">README</span><span class="chip">Marp</span></div>
+          <p class="task"><span class="task-dot" aria-hidden="true"></span>۲ تکلیف: نوشتن یک فایل README و یک ارائه Marp</p>
+          
+        </article>
+        <article class="topic" style="--c:34 229 255">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.5 5H6.2l6 7-6 7h12.3"/><path d="M18.5 5v2.5M18.5 19v-2.5"/></svg></span>
+            <span class="num">۳</span>
+          </div>
+          <h3>حروف‌چینی و نگارش علمی با LaTeX</h3>
+          <div class="meta"><span class="sess">۲ جلسه حضوری</span><span class="sess sess-soft">بقیه مطالب به صورت فایل ویدیویی</span></div>
+          <ul><li>آشنایی مقدماتی با LaTeX و ساختار اسناد علمی</li><li>دستورهای اولیه، حروف‌چینی متن و فرمول‌نویسی ریاضی</li><li>درج تصویر، ایجاد جدول و مدیریت مراجع</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">LaTeX</span></div>
+          <p class="task"><span class="task-dot" aria-hidden="true"></span>تکلیف دارد؛ جلسات می‌تواند در طول ترم پخش شود</p>
+          
+        </article>
+      </div>
+    </section>
+    <section class="part" id="p2" style="--c:255 61 240" aria-labelledby="p2-t">
+      <header class="part-head">
+        <span class="part-badge">بخش دوم</span>
+        <h2 id="p2-t">ابزارهای وب و هوش مصنوعی</h2>
+        <span class="part-rule" aria-hidden="true"></span>
+      </header>
+      <div class="grid n2">
+        <article class="topic" style="--c:255 61 240">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.5a4.2 4.2 0 0 1-.6-8.4 5.6 5.6 0 0 1 10.8 1.2A3.6 3.6 0 0 1 17 18.5H7Z"/><path d="M12 12v4m0-4-1.6 1.6M12 12l1.6 1.6"/></svg></span>
+            <span class="num">۴</span>
+          </div>
+          <h3>سرویس‌های ابری و تبادل دانش</h3>
+          <div class="meta"><span class="sess">۰٫۵ جلسه</span></div>
+          <ul><li>آشنایی با سرویس‌های کاربردی و ابری</li><li>سرویس‌های پرسش و پاسخ و تبادل دانش</li><li>اصول طرح سوال صحیح و جستجوی مؤثر در فروم‌های فنی</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">Google Drive</span><span class="chip">Dropbox</span><span class="chip">Google Colab</span><span class="chip">Stack Overflow</span><span class="chip">Stack Exchange</span></div>
+          
+          
+        </article>
+        <article class="topic" style="--c:255 61 240">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/><path d="M18.5 16.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8Z"/></svg></span>
+            <span class="num">۵</span>
+          </div>
+          <h3>هوش مصنوعی و مهندسی پرامپت (Prompt Engineering)</h3>
+          <div class="meta"><span class="sess">۱ جلسه</span></div>
+          <ul><li>آشنایی با ابزارهایی مانند ChatGPT</li><li>اصول Prompt Engineering جهت Debugging، فهم کد و یادگیری تسریع‌شده</li><li>اخلاق استفاده از هوش مصنوعی در علوم کامپیوتر و کدنویسی (بسیار مهم)</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">ChatGPT</span><span class="chip">Prompt Engineering</span></div>
+          <p class="task"><span class="task-dot" aria-hidden="true"></span>تکلیف: دیباگ کردن مرحله به مرحله یک کد با AI</p>
+          
+        </article>
+      </div>
+    </section>
+    <section class="part" id="p3" style="--c:182 255 59" aria-labelledby="p3-t">
+      <header class="part-head">
+        <span class="part-badge">بخش سوم</span>
+        <h2 id="p3-t">محیط‌های توسعه و ابزارهای Build</h2>
+        <span class="part-rule" aria-hidden="true"></span>
+      </header>
+      <div class="grid n2">
+        <article class="topic" style="--c:182 255 59">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 4.5h5l.7 2.2 2-.9 2.5 2.5-.9 2 2.2.7v3.6l-2.2.7.9 2-2.5 2.5-2-.9-.7 2.2h-5l-.7-2.2-2 .9-2.5-2.5.9-2-2.2-.7V10l2.2-.7-.9-2 2.5-2.5 2 .9.7-2.2Z"/><circle cx="12" cy="12" r="2.8"/></svg></span>
+            <span class="num">۶</span>
+          </div>
+          <h3>تنظیم محیط توسعه</h3>
+          <div class="meta"><span class="sess">۰٫۵ جلسه</span></div>
+          <ul><li>پیکربندی حرفه‌ای VS Code و نصب افزونه‌های ضروری</li><li>آشنایی با محیط‌های متنی در ترمینال (صرفاً در حد معرفی)</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">VS Code</span><span class="chip">C/C++</span><span class="chip">Marp</span><span class="chip">Git</span><span class="chip">Vim</span><span class="chip">Nano</span></div>
+          
+          
+        </article>
+        <article class="topic" style="--c:182 255 59">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5 9 11l-5 4.5"/><path d="M11 18h9"/><path d="M13 4l2 2M17 4l-6 6"/></svg></span>
+            <span class="num">۷</span>
+          </div>
+          <h3>کامپایل دستی و ساخت پروژه</h3>
+          <div class="meta"><span class="sess">۰٫۵ جلسه</span></div>
+          <ul><li>کامپایل برنامه‌ها با gcc و سوئیچ‌های مهم</li><li>آشنایی اولیه با Makefile برای مدیریت پروژه‌های چند فایلی</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">gcc</span><span class="chip">-o</span><span class="chip">-g</span><span class="chip">-Wall</span><span class="chip">Makefile</span></div>
+          
+          
+        </article>
+      </div>
+    </section>
+    <section class="part" id="p4" style="--c:255 176 32" aria-labelledby="p4-t">
+      <header class="part-head">
+        <span class="part-badge">بخش چهارم</span>
+        <h2 id="p4-t">خطایابی عمیق و تست کد</h2>
+        <span class="part-rule" aria-hidden="true"></span>
+      </header>
+      <div class="grid n2">
+        <article class="topic" style="--c:255 176 32">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7.5a3 3 0 0 1 6 0V8H9v-.5Z"/><rect x="7.5" y="8" width="9" height="10" rx="4.5"/><path d="M12 8v10M3.5 10.5l4 1.5M20.5 10.5l-4 1.5M3.5 17l4-1.5M20.5 17l-4-1.5M9 4.5 7.5 3M15 4.5 16.5 3"/></svg></span>
+            <span class="num">۸</span>
+          </div>
+          <h3>خطایابی با GDB</h3>
+          <div class="meta"><span class="sess">۱ جلسه</span></div>
+          <ul><li>نحوه کار با اشکال‌زدای GDB</li><li>گذاشتن Breakpoint، پیمایش خط‌به‌خط و ردیابی ارزش متغیرها</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">GDB</span><span class="chip">Breakpoint</span></div>
+          
+          
+        </article>
+        <article class="topic" style="--c:255 176 32">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2.4"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 2.5v2.5M12 2.5v2.5M15 2.5v2.5M9 19v2.5M12 19v2.5M15 19v2.5M2.5 9H5M2.5 12H5M2.5 15H5M19 9h2.5M19 12h2.5M19 15h2.5"/></svg></span>
+            <span class="num">۹</span>
+          </div>
+          <h3>تحلیل حافظه با Valgrind</h3>
+          <div class="meta"><span class="sess">۰٫۵ جلسه</span></div>
+          <ul><li>شناسایی Memory Leak و دسترسی‌های غیرمجاز در حافظه</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">Valgrind</span><span class="chip">Memory Leak</span></div>
+          <p class="task"><span class="task-dot" aria-hidden="true"></span>هماهنگ و هم‌زمان با تدریس اشاره‌گرها و حافظه پویا در درس مبانی</p>
+          
+        </article>
+      </div>
+    </section>
+    <section class="part" id="p5" style="--c:155 107 255" aria-labelledby="p5-t">
+      <header class="part-head">
+        <span class="part-badge">بخش پنجم</span>
+        <h2 id="p5-t">سیستم‌عامل لینوکس و محیط Shell</h2>
+        <span class="part-rule" aria-hidden="true"></span>
+      </header>
+      <div class="grid n2">
+        <article class="topic" style="--c:155 107 255">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="4" rx="1.2"/><rect x="3" y="16" width="6" height="4" rx="1.2"/><rect x="15" y="16" width="6" height="4" rx="1.2"/><path d="M12 7v4.5M6 16v-4.5h12V16"/></svg></span>
+            <span class="num">۱۰</span>
+          </div>
+          <h3>مفاهیم پایه لینوکس</h3>
+          <div class="meta"><span class="sess">۱ جلسه</span></div>
+          <ul><li>آشنایی با سیستم‌عامل لینوکس، درخت فایل‌سیستم و مفهوم Shell</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">Linux</span><span class="chip">Shell</span></div>
+          
+          
+        </article>
+        <article class="topic" style="--c:155 107 255">
+          <div class="topic-top">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.4"/><path d="m7 10 3 2.5L7 15M12.5 15.5H17"/></svg></span>
+            <span class="num">۱۱</span>
+          </div>
+          <h3>دستورات مهم و کاربردی لینوکس</h3>
+          <div class="meta"><span class="sess">۱ جلسه</span></div>
+          <ul><li>پیمایش و مدیریت فایل‌ها</li><li>سطوح دسترسی و مدیریت کاربران</li><li>پروسه‌ها و راهنمای سیستم</li><li>پردازش و جستجوی متن</li><li>فشرده‌سازی و استخراج فایل‌ها</li></ul>
+          <div class="chips" dir="ltr"><span class="chip">cd</span><span class="chip">ls</span><span class="chip">cp</span><span class="chip">mkdir</span><span class="chip">chmod</span><span class="chip">su</span><span class="chip">passwd</span><span class="chip">kill</span><span class="chip">Help</span><span class="chip">grep</span><span class="chip">tar</span><span class="chip">zip</span></div>
+          
+          
+        </article>
+      </div>
+    </section>
+    </section>
+
+    <aside class="summary" aria-label="جمع‌بندی جلسات">
+      <strong><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-calendar"/></svg>۱۰ جلسه درسی + ۱ جلسه امتحان + ۱ جلسه بافر = ۱۲ جلسه</strong>
+      <span>۱ امتحان خارج از جلسات اصلی کلاس</span>
+    </aside>
+
+    <footer class="footer">مطالب آموزشی کارگاه کامپیوتر ۱</footer>
+  </main>
+</body>
+</html>
